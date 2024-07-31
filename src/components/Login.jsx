@@ -1,17 +1,39 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { checkValidation } from "../utils/validate";
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const nameRef = useRef(null);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+  const [submitErrorMessage, setSubmitErrorMessage] = useState(null);
 
   function handleFormStateChange() {
+    setSubmitErrorMessage(null);
     setIsLogin(!isLogin);
+  }
+
+  function handleValidation() {
+    setSubmitErrorMessage(null);
+    const res = checkValidation(
+      nameRef.current?.value,
+      emailRef.current.value,
+      passwordRef.current.value
+    );
+
+    // this is when we have errors from client input in the form
+    if (!res.success) {
+      return setSubmitErrorMessage(res.errorMessage);
+    }
+    // signup / signin flow since form is validated (backend calls ?)
+    console.log('All good to go')
   }
 
   return (
     <div className="absolute bg-[#FAF0E6] w-screen h-screen">
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="flex flex-col w-3/12 px-4 py-8 justify-center mx-auto m-10 rounded-lg bg-[#405D72] bg-opacity-90 text-[#FFF8F3]"
+        className="flex flex-col w-3/4 sm:h-fit h-1/2 sm:w-3/12 px-4 py-8 justify-center mx-auto m-10 rounded-lg bg-[#405D72] bg-opacity-90 text-[#FFF8F3]"
       >
         <h1 className="text-3xl font-bold mb-5 self-center">
           {isLogin ? `Sign In` : `Sign Up`}
@@ -20,7 +42,8 @@ const Login = () => {
           <input
             type="text"
             placeholder="Full Name"
-            className="p-2 mb-3 rounded-lg"
+            className="p-2 mb-3 rounded-lg text-black"
+            ref={nameRef}
           />
         ) : (
           ""
@@ -29,19 +52,27 @@ const Login = () => {
         <input
           type="text"
           placeholder="Email Address"
-          className="p-2 mb-3 rounded-lg"
+          className="p-2 mb-3 rounded-lg text-black"
+          ref={emailRef}
+          autoComplete="username"
         />
         <input
           type="password"
           placeholder="Password"
-          className="p-2 mb-3 rounded-lg"
+          className="p-2 mb-3 rounded-lg text-black"
+          ref={passwordRef}
+          autoComplete="current-password"
         />
-        <button className="w-full font-semibold rounded-lg bg-[#E68369] text-white py-1 mx-auto my-3 hover:bg-opacity-95 hover:font-black">
+        <p className="text-red-400 font-bold">{submitErrorMessage}</p>
+        <button
+          className="w-full font-semibold rounded-lg bg-[#E68369] text-white py-1 mx-auto my-3 hover:bg-opacity-95 hover:font-black"
+          onClick={handleValidation}
+        >
           {isLogin ? `Sign In` : `Sign Up`}
         </button>
         <p
           onClick={handleFormStateChange}
-          className="text-sm hover:cursor-pointer hover:underline"
+          className="sm:text-sm text-xs hover:cursor-pointer hover:underline"
         >
           {isLogin
             ? `New User? Click here to make an account`
