@@ -2,17 +2,34 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const userSlice = createSlice({
   name: "user",
-  initialState: null,
+  initialState: {
+    user: null,
+    spotify_access_token: null,
+  },
   reducers: {
     setUser: (state, action) => {
-      return action.payload;
+      state.user = action.payload;
     },
     removeUser: () => {
-      return null;
+      return {
+        name: null,
+        spotify_access_token: null,
+      };
+    },
+    setSpotifyAccessToken: (state, action) => {
+      state.spotify_access_token = action.payload;
+    },
+    removeSpotifyAccessToken: (state) => {
+      state.spotify_access_token = null;
     },
   },
 });
 
-export const { setUser, removeUser } = userSlice.actions;
+export const {
+  setUser,
+  removeUser,
+  setSpotifyAccessToken,
+  removeSpotifyAccessToken,
+} = userSlice.actions;
 
 export default userSlice.reducer;

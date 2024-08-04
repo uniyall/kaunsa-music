@@ -1,13 +1,13 @@
 import { useRef, useState } from "react";
-import { checkValidation } from "../utils/validate";
-import { auth } from "../utils/firebase";
+import { checkValidation } from "../../utils/validate";
+import { auth } from "../../utils/firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
 import { useDispatch } from "react-redux";
-import { setUser } from "../utils/state/userSlice";
+import { setUser } from "../../utils/state/userSlice";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {

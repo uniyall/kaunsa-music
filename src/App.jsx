@@ -4,7 +4,12 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./utils/firebase";
-import { setUser, removeUser } from "./utils/state/userSlice";
+import {
+  setUser,
+  removeUser,
+  removeSpotifyAccessToken,
+  setSpotifyAccessToken,
+} from "./utils/state/userSlice";
 import { emptyTracks } from "./utils/state/musicSlice";
 
 function App() {
@@ -12,10 +17,25 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const token = localStorage.getItem("spotify_access_token");
+    if (!token) {
+      dispatch(removeSpotifyAccessToken());
+    } else {
+      dispatch(setSpotifyAccessToken(token));
+    }
+
+    window.addEventListener("storage", () => {
+      const token = localStorage.getItem("spotify_access_token");
+      if (!token) {
+        dispatch(removeSpotifyAccessToken());
+      } else {
+        dispatch(setSpotifyAccessToken(token));
+      }
+    });
+
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         //signin / signup
-        console.log(user);
         const { uid, displayName, email } = user;
         dispatch(
           setUser({
@@ -25,19 +45,17 @@ function App() {
           })
         );
 
-        navigate('/browse');
-
+        navigate("/browse");
       } else {
         // logged out
         dispatch(removeUser());
-        dispatch(emptyTracks())
-        navigate('/');
+        dispatch(emptyTracks());
+        navigate("/");
       }
     });
 
     // unsubscribe on component unmount
     return () => unsubscribe();
-
   }, []);
   return (
     <div className="relative">

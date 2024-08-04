@@ -4,6 +4,7 @@ const musicSlice = createSlice({
   name: "music",
   initialState: {
     tracks: null,
+    heroMetadata: null,
   },
   reducers: {
     addTracks: (state, action) => {
@@ -12,9 +13,16 @@ const musicSlice = createSlice({
     emptyTracks: (state) => {
       state.tracks = null;
     },
+    addHero: (state, action) => {
+      state.heroMetadata = action.payload;
+    },
+    removeHero: (state) => {
+      state.heroMetadata = null;
+    },
   },
 });
 
 export default musicSlice.reducer;
 
-export const { addTracks, emptyTracks } = musicSlice.actions;
+export const { addTracks, emptyTracks, addHero, removeHero } =
+  musicSlice.actions;
