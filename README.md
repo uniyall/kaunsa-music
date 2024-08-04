@@ -4,7 +4,7 @@ Confused what songs to listen? We've got you!
 
 **Steps to run in Local**:
 
-1. Install all dependencies
+1. Install nodejs dependencies
 
    ```bash
    npm install
