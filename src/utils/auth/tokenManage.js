@@ -1,8 +1,11 @@
 import axios from "axios";
 import { SPOTIFY_REFRESH_TOKEN_API_URL } from "../constants";
 
-export const getAccessToken = async () => {
-  const response = await axios.post(
+export const generateNewAccessToken = () => {
+  const token = localStorage.getItem("spotify_access_token");
+  if (token) return new Promise((res) => res({ lastStepToken: token }));
+
+  return axios.post(
     SPOTIFY_REFRESH_TOKEN_API_URL,
     new URLSearchParams({
       grant_type: "refresh_token",
@@ -15,7 +18,4 @@ export const getAccessToken = async () => {
       },
     }
   );
-
-  localStorage.setItem("spotify_access_token", response.data?.access_token);
-  return response.data?.access_token;
 };

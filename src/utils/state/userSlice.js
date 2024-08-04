@@ -4,7 +4,7 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     user: null,
-    spotify_access_token: null,
+    spotify_access_token: localStorage.getItem("spotify_access_token") || null,
   },
   reducers: {
     setUser: (state, action) => {

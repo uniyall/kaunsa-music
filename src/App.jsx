@@ -58,7 +58,7 @@ function App() {
     return () => unsubscribe();
   }, []);
   return (
-    <div className="relative">
+    <div className="relative bg-black">
       <Header />
       <Outlet />
     </div>

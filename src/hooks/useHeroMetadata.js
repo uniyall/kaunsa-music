@@ -24,13 +24,14 @@ function useHeroMetadata() {
 
   async function heroDataFetch() {
     // Explicit check -> Hero track must not be an explicit song
-
     let eCheck = true;
 
     while (eCheck) {
       const randomIndex = Math.floor(Math.random() * 50);
+      console.log(randomIndex);
       var randomTrack = music[randomIndex];
-      eCheck = randomTrack.track.explicit;
+      eCheck = false;
+      // eCheck = randomTrack.track.explicit;
     }
 
     const heroTrack = randomTrack.track;

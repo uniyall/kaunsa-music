@@ -1,10 +1,9 @@
-import React from "react";
-import useTodayTopSongs from "../../hooks/useTopSongs";
+import React, { useEffect, useState } from "react";
 import MainContainer from "./MainContainer";
 import SecondaryContainer from "./SecondaryContainer";
+import { useLoaderData } from "react-router-dom";
 
 const Browse = () => {
-  useTodayTopSongs();
   return (
     <div>
       <MainContainer />

@@ -17,12 +17,12 @@ const Header = () => {
   }
 
   return (
-    <div className="relative w-screen bg-gradient-to-b from-[#FFF8F3] to-[#FAF0E6] flex justify-around items-center z-10">
+    <div className="relative bg-gradient-to-b from-black from-60% w-screen flex justify-around items-center z-10">
       <div className="flex flex-col items-center">
-        <h1 className="text-[#352F44] text-[31.25px] sm:text-[48.83px] p-1 m-1">
+        <h1 className="text-white text-[31.25px] sm:text-[48.83px] p-1 m-1">
           Kaunsa Music?
         </h1>
-        <h2 className="text-[#5C5470]">
+        <h2 className="text-[#5C5470 text-white relative top-10">
           Confused what song to listen? We've got you!
         </h2>
       </div>
