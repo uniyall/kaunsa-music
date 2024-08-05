@@ -58,8 +58,8 @@ function App() {
     return () => unsubscribe();
   }, []);
   return (
-    <div className="relative bg-black">
-      <Header />
+    <div className="relative">
+      {/* <Header /> */}
       <Outlet />
     </div>
   );

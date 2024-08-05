@@ -1,7 +1,7 @@
 import axios from "axios";
 import appStore from "./state/appStore";
 import { addTracks } from "./state/musicSlice";
-import { SPOTIFY_TODAYS_TOP_HITS_API_URL } from "./constants";
+import { SPOTIFY_API_URL } from "./constants";
 import { generateNewAccessToken } from "./auth/tokenManage";
 
 function loadInitialTracks() {

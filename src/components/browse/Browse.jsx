@@ -1,15 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import MainContainer from "./MainContainer";
 import SecondaryContainer from "./SecondaryContainer";
-import { useLoaderData } from "react-router-dom";
+import HeroBgShimmer from "./HeroBgShimmer";
+import useHeroData from "../../hooks/useHeroData";
+
 
 const Browse = () => {
-  return (
-    <div>
-      <MainContainer />
-      <SecondaryContainer />
-    </div>
-  );
+
+  const data = useHeroData();
+
+  if (!data) {
+    // return <HeroBgShimmer />;
+    return (
+      <div>Nothing yet...</div>
+    )
+  }
+
+  if (data) {
+    return (
+      <div>
+        <MainContainer songParam={data}/>
+        {/* <SecondaryContainer /> */}
+      </div>
+    );
+  }
 };
 
 export default Browse;

@@ -4,14 +4,6 @@ import axios from "axios";
 import { addHero } from "../utils/state/musicSlice";
 import { GENIUS_API_URL } from "../utils/constants";
 
-function convertToDurationString(durationMs) {
-  const totalSec = Math.floor(durationMs / 1000);
-  let mins = Math.floor(totalSec / 60);
-  let seconds = totalSec % 60;
-  let duration = `${mins} min ${seconds} sec`;
-  return duration;
-}
-
 function useHeroMetadata() {
   const dispatch = useDispatch();
   const music = useSelector((store) => store.music.tracks);
@@ -30,8 +22,7 @@ function useHeroMetadata() {
       const randomIndex = Math.floor(Math.random() * 50);
       console.log(randomIndex);
       var randomTrack = music[randomIndex];
-      eCheck = false;
-      // eCheck = randomTrack.track.explicit;
+      eCheck = randomTrack.track.explicit;
     }
 
     const heroTrack = randomTrack.track;

@@ -8,6 +8,7 @@ import { getAccessToken } from "../utils/auth/tokenManage";
 function useTodayTopSongs() {
   const dispatch = useDispatch();
   let token = useSelector((store) => store.user.spotify_access_token);
+  
   // if the token has not expired and it is in local storage, then the const above will be good to go
   if (!token) {
     const tokenPromise = getAccessToken();

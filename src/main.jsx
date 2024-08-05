@@ -10,8 +10,9 @@ import appStore from "./utils/state/appStore.js";
 import loadInitialTracks from "./utils/loadInitialTracks.js";
 import Error from "./components/Error.jsx";
 import { generateNewAccessToken } from "./utils/auth/tokenManage.js";
-
-console.log("hey I am main jsx file yaar");
+import { spotifyApi } from "./utils/state/services/spotifyApi.js";
+import { geniusApi } from "./utils/state/services/geniusApi.js";
+import { SPOTIFY_PLAYLIST_ID } from "./utils/constants.js";
 
 const appRouter = createBrowserRouter([
   {
@@ -24,10 +25,15 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/browse",
-        loader: () => {
-          console.log("loader fn is called");
-          // I need to return a promise!
-          return defer(loadInitialTracks());
+        loader: async () => {
+          appStore.dispatch(
+            spotifyApi.util.prefetch(
+              "fetchSpotifyTracks",
+              SPOTIFY_PLAYLIST_ID,
+              { force: true }
+            )
+          );
+          return null;
         },
         element: <Browse />,
 

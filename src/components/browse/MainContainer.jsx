@@ -1,16 +1,30 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import HeroCard from "./HeroCard";
 import HeroBackground from "./HeroBackground";
-import useHeroMetadata from "../../hooks/useHeroMetadata";
-import HeroBgShimmer from "./HeroBgShimmer";
+import { geniusApi } from "../../utils/state/services/geniusApi";
 
-const MainContainer = () => {
-  useHeroMetadata();
-  const heroMetaData = useSelector((store) => store.music.heroMetadata);
+const MainContainer = ({ songParam }) => {
+  const { isLoading, heroMetaData } =
+    geniusApi.endpoints.fetchMatchingSongData.useQueryState(songParam, {
+      skip: false,
+      selectFromResult: ({ isLoading, data }) => {
+        return {
+          isLoading,
+          data,
+        };
+      },
+    });
 
-  if (!heroMetaData) {
-    return <HeroBgShimmer />;
+  if (isLoading) {
+    return <div>Loading with additional data...</div>;
+    // early return!
+    // return Shimmer with additional info -> that is the song name! (keep animation to about 5s)
+  }
+  else 
+  {
+    return (
+      <div>Loaded....</div>
+    )
   }
 
   const {
