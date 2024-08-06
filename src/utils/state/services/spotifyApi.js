@@ -7,7 +7,7 @@ export const spotifyApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: SPOTIFY_API_URL,
     headers: {
-      Authorization: `Bearer BQD1wpcy-cA3tYxDYojMbbL0GulhiwpJ_Vel-LPCetJ5q9wli2mxgXjNblQKptPzDQa6I7_F96rPmUOkXCngyIIg0S2rM8ijRYc1_9vzESix4v5sX5FrsqaeMb0T39nFn1KbRog8-HP5j9Z-qaNBwSAnnZ51K8VbPdKSnpGxQVAukUIMbYTvyEQRtuetUUO6JwfJHm5XQByHvnkEyUCh_-Yi150`,
+      Authorization: `Bearer BQDEbzzp54HJyCXP2WcrTM_vyn_gTaZm5MORl0iDZCxlYsDBkut1AB5TQSWTcEDUiiz5mh9PAiXss2Mnzj_p2T13UhK-kelLKDgZkxeYOU7p-EJi_o6RgAF1nRdI0Rq5Z-nljNWW9Ba8R5S8DPwhQg92qqtRAkc14N7KX74qtzGAR7wFH3AL5aRmradNw26sihGZVkSZP32OTnupOZ4_fkVfEXI`,
     },
   }),
   endpoints: (builder) => ({

@@ -5,6 +5,7 @@ const userSlice = createSlice({
   initialState: {
     user: null,
     spotify_access_token: localStorage.getItem("spotify_access_token") || null,
+    ytBgLoadable : false
   },
   reducers: {
     setUser: (state, action) => {
@@ -22,6 +23,9 @@ const userSlice = createSlice({
     removeSpotifyAccessToken: (state) => {
       state.spotify_access_token = null;
     },
+    setYtBgLoadable : (state, action) => {
+      state.ytBgLoadable = action.payload;
+    }
   },
 });
 
@@ -30,6 +34,7 @@ export const {
   removeUser,
   setSpotifyAccessToken,
   removeSpotifyAccessToken,
+  setYtBgLoadable
 } = userSlice.actions;
 
 export default userSlice.reducer;

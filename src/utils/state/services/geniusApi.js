@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { GENIUS_API_URL } from "../../constants";
-import convertToDurationString from "../../convertToDurationString";
+import { setUser } from "../userSlice";
 
 export const geniusApi = createApi({
   reducerPath: "geniusApi",
@@ -10,10 +10,16 @@ export const geniusApi = createApi({
   endpoints: (builder) => ({
     fetchMatchingSongData: builder.query({
       async queryFn(args, queryApi, _extraOptions, fetchWithBQ) {
-        // const queryParam = queryApi.getState();
-        // console.log(queryParam);
-
         const searchParam = args;
+        const {
+          spotifyApi: { queries },
+        } = queryApi.getState();
+
+        const {
+          data: { trackDurationString: trackDuration, popularity },
+        } = Object.entries(queries)[0][1];
+
+        console.log(trackDuration, popularity);
 
         // 1st API call
         const {
@@ -33,7 +39,11 @@ export const geniusApi = createApi({
         );
 
         // 2nd API call
-        const { data: songData } = await fetchWithBQ(
+        const {
+          data: {
+            response: { song },
+          },
+        } = await fetchWithBQ(
           `${GENIUS_API_URL}${api_path}?access_token=${
             import.meta.env.VITE_GENIUS_TOKEN
           }`
@@ -47,14 +57,14 @@ export const geniusApi = createApi({
           release_date_for_display: releaseDate,
           song_art_image_url: trackCover,
           artist_names: trackArtists,
-        } = songData?.response?.song;
+          media: ytArray,
+        } = song;
 
-        // const popularity = heroTrack.popularity;
-        const popularity = 99;
-
-        // const trackDuration = convertToDurationString(heroTrack.duration_ms);
-        const trackDuration = 123;
-        const ytKey = 1;
+        const ytKey = ytArray
+          ?.filter(
+            (media) => media.type == "video" && media.provider == "youtube"
+          )?.[0]
+          ?.url.match(/[?&]v=([^&]+)/)?.[1];
 
         return {
           data: {

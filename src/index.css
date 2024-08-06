@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 .animated-background {
-  background-size: 200%;
-  animation: animation 5s ease infinite;
+  background-size: 400%;
+  animation: animation 3s ease infinite;
 }
 
 @keyframes animation {
@@ -21,4 +21,6 @@
   width: 100%;
   height: 100%;
   position: relative;
+  -webkit-filter: blur(1px);
+  filter: blur(1px);
 }

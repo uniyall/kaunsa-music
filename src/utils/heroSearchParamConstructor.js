@@ -1,3 +1,5 @@
+import convertToDurationString from "./convertToDurationString";
+
 function heroSearchParamConstructor(music) {
   let eCheck = true;
 
@@ -23,9 +25,16 @@ function heroSearchParamConstructor(music) {
     .join("%20")
     .trim();
 
+  const trackDurationString = convertToDurationString(heroTrack.duration_ms);
+  const popularity = heroTrack.popularity;
   const artistString = artist.split(" ").join("%20").trim();
+  const searchParam = `${songString}%20${artistString}`;
 
-  return `${songString}%20${artistString}`;
+  return {
+    searchParam,
+    trackDurationString,
+    popularity,
+  };
 }
 
 export default heroSearchParamConstructor;

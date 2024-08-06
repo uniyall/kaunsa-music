@@ -1,31 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import HeroCard from "./HeroCard";
 import HeroBackground from "./HeroBackground";
 import { geniusApi } from "../../utils/state/services/geniusApi";
+import OnlyTitleShimmer from "./OnlyTitleShimmer";
+import Footer from "./Footer";
+import { useDispatch } from "react-redux";
+import { setYtBgLoadable } from "../../utils/state/userSlice";
 
 const MainContainer = ({ songParam }) => {
-  const { isLoading, heroMetaData } =
+  const dispatch = useDispatch();
+  const { data: heroMetaData } =
     geniusApi.endpoints.fetchMatchingSongData.useQueryState(songParam, {
       skip: false,
       selectFromResult: ({ isLoading, data }) => {
         return {
-          isLoading,
           data,
         };
       },
     });
 
-  if (isLoading) {
-    return <div>Loading with additional data...</div>;
+  useEffect(() => {
+    if (heroMetaData) {
+      dispatch(setYtBgLoadable(heroMetaData?.ytKey));
+    }
+  }, [heroMetaData]);
+
+  if (!heroMetaData) {
+    return <OnlyTitleShimmer />;
     // early return!
     // return Shimmer with additional info -> that is the song name! (keep animation to about 5s)
   }
-  else 
-  {
-    return (
-      <div>Loaded....</div>
-    )
-  }
+  // main stuff to render now finally
 
   const {
     ytKey,
@@ -41,21 +46,25 @@ const MainContainer = ({ songParam }) => {
   } = heroMetaData;
 
   return (
-    <div className="w-screen aspect-video relative -top-[60px]">
+    <div className="w-screen h-screen relative">
       <HeroBackground
         backgroundVidKey={ytKey}
         coverartPrimary={primaryColor}
         coverartSecondary={secondaryColor}
-        textColor={textColor}
       />
       <HeroCard
+        backgroundVidKey={ytKey}
         coverImg={trackCover}
         songTitle={trackTitle}
         artists={trackArtists}
         duration={trackDuration}
         addedDate={releaseDate}
         popularity={popularity}
+        coverartPrimary={primaryColor}
+        coverartSecondary={secondaryColor}
+        textColor={textColor}
       />
+      <Footer backgroundVidKey={ytKey} />
     </div>
   );
 };

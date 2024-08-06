@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import useLoadHeroVideo from "../../hooks/useLoadHeroVideo";
 
 const HeroBackground = ({
   backgroundVidKey,
   coverartPrimary,
   coverartSecondary,
-  textColor,
 }) => {
   useLoadHeroVideo(backgroundVidKey);
 
@@ -18,7 +17,7 @@ const HeroBackground = ({
             backgroundImage: `linear-gradient(to right, ${coverartPrimary} 50%, ${coverartSecondary})`,
           }}
         ></div>
-      ) : (
+      ) : (                                             
         <div className={`w-full h-full bg-black absolute z-100 top-0`}>
           <div id="player"></div>
         </div>

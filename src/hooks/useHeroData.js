@@ -18,8 +18,10 @@ function useHeroData() {
 
   useEffect(() => {
     if (!isLoading) {
+      console.log("logginf");
+
       appStore.dispatch(
-        geniusApi.util.prefetch("fetchMatchingSongData", data, {
+        geniusApi.util.prefetch("fetchMatchingSongData", data?.searchParam, {
           force: true,
         })
       );
@@ -28,7 +30,7 @@ function useHeroData() {
 
   console.log(isLoading);
 
-  return data ? data : null;
+  return data?.searchParam;
 }
 
 export default useHeroData;
