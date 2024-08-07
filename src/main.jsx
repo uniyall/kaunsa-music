@@ -7,11 +7,8 @@ import Login from "./components/login/Login.jsx";
 import Browse from "./components/browse/Browse.jsx";
 import { Provider } from "react-redux";
 import appStore from "./utils/state/appStore.js";
-import loadInitialTracks from "./utils/loadInitialTracks.js";
 import Error from "./components/Error.jsx";
-import { generateNewAccessToken } from "./utils/auth/tokenManage.js";
 import { spotifyApi } from "./utils/state/services/spotifyApi.js";
-import { geniusApi } from "./utils/state/services/geniusApi.js";
 import { SPOTIFY_PLAYLIST_ID } from "./utils/constants.js";
 
 const appRouter = createBrowserRouter([

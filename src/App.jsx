@@ -10,7 +10,9 @@ import {
   removeSpotifyAccessToken,
   setSpotifyAccessToken,
 } from "./utils/state/userSlice";
-import { emptyTracks } from "./utils/state/musicSlice";
+import { openaiApi } from "./utils/state/services/openaiApi";
+import { spotifyApi } from "./utils/state/services/spotifyApi";
+import { geniusApi } from "./utils/state/services/geniusApi";
 
 function App() {
   const dispatch = useDispatch();
@@ -49,7 +51,9 @@ function App() {
       } else {
         // logged out
         dispatch(removeUser());
-        dispatch(emptyTracks());
+        dispatch(openaiApi.util.resetApiState());
+        dispatch(spotifyApi.util.resetApiState());
+        dispatch(geniusApi.util.resetApiState());
         navigate("/");
       }
     });
@@ -57,6 +61,7 @@ function App() {
     // unsubscribe on component unmount
     return () => unsubscribe();
   }, []);
+
   return (
     <div className="relative h-screen bg-black">
       <Header />

@@ -5,30 +5,26 @@ import { spotifyApi } from "../utils/state/services/spotifyApi";
 import appStore from "../utils/state/appStore";
 
 function useHeroData() {
-  const { isLoading, data } =
-    spotifyApi.endpoints.fetchSpotifyTracks.useQueryState(SPOTIFY_PLAYLIST_ID, {
+  const {
+    isError
+  } = spotifyApi.endpoints.fetchSpotifyTracks.useQueryState(
+    SPOTIFY_PLAYLIST_ID,
+    {
       skip: false,
-      selectFromResult: ({ isLoading, data }) => {
-        return {
-          isLoading,
-          data,
-        };
-      },
-    });
+    }
+  );
+
+  console.log(spotify_state);
 
   useEffect(() => {
-    if (!isLoading) {
-      console.log("logginf");
-
+    if (!isError) {
       appStore.dispatch(
         geniusApi.util.prefetch("fetchMatchingSongData", data?.searchParam, {
           force: true,
         })
       );
     }
-  }, [isLoading]);
-
-  console.log(isLoading);
+  }, [spotify_state.isLoading]);
 
   return data?.searchParam;
 }

@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { GENIUS_API_URL } from "../../constants";
-import { setUser } from "../userSlice";
 
 export const geniusApi = createApi({
   reducerPath: "geniusApi",
@@ -10,6 +9,7 @@ export const geniusApi = createApi({
   endpoints: (builder) => ({
     fetchMatchingSongData: builder.query({
       async queryFn(args, queryApi, _extraOptions, fetchWithBQ) {
+        
         const searchParam = args;
         const {
           spotifyApi: { queries },
