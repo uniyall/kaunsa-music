@@ -29,4 +29,7 @@ Confused what songs to listen? We've got you!
 4. [Genius API](https://docs.genius.com/) - For fetching detailed meta data of individual songs 
 5. [YouTube Player API](https://developers.google.com/youtube/iframe_api_reference) - For video playback of song music video 
 6. [React Router](https://reactrouter.com/en/main) - For routing 
-7. [Redux Toolkit](https://redux-toolkit.js.org/usage/usage-guide) - For state management 
+7. [Redux Toolkit](https://redux-toolkit.js.org/usage/usage-guide) - For state management
+8. [OpenAI API](https://platform.openai.com/docs/api-reference/introduction) - For Song Query suggestions and recommendations
+
+Additionally an ec2 instance is running (which is accessible via an AWS Application Load Balancer), which has the task of generating Access Token for the Spotify Web API.
