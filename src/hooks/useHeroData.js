@@ -5,16 +5,15 @@ import { spotifyApi } from "../utils/state/services/spotifyApi";
 import appStore from "../utils/state/appStore";
 
 function useHeroData() {
-  const {
-    isError
-  } = spotifyApi.endpoints.fetchSpotifyTracks.useQueryState(
+  const spotify_state = spotifyApi.endpoints.fetchSpotifyTracks.useQueryState(
     SPOTIFY_PLAYLIST_ID,
     {
       skip: false,
     }
   );
+  
+  const { isError, isLoading, data } = spotify_state
 
-  console.log(spotify_state);
 
   useEffect(() => {
     if (!isError) {
@@ -24,7 +23,7 @@ function useHeroData() {
         })
       );
     }
-  }, [spotify_state.isLoading]);
+  }, [isLoading]);
 
   return data?.searchParam;
 }

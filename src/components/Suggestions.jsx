@@ -1,22 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 
-const Suggestions = ({ suggestions }) => {
-  const [isHidden, setIsHidden] = useState(false);
-
+const Suggestions = ({ suggestions, inputQueryChanger, setShowSuggestions }) => {
   return (
     <div
-      className={`w-full relative ${
-        isHidden ? "hidden" : ""
-      } -top-1 border-2 rounded-b-md flex flex-col bg-white text-gray-600`}
-      // onMouseLeave={() => {
-      //   let t = setTimeout(() => {
-      //     setIsHidden(true);
-      //   });
-      // }}
+      className="absolute w-full top-full border-2 rounded-b-md flex flex-col bg-white text-gray-600 z-10" // Added absolute positioning and z-index
     >
-      {suggestions.map((suggestion) => {
+      {suggestions.map((suggestion, index) => {
         return (
-          <div className="w-full border-b-2 text-sm p-1 hover:cursor-pointer hover:bg-gray-100">
+          <div
+            key={index}
+            className="w-full border-b-2 text-sm p-1 hover:cursor-pointer hover:bg-gray-100"
+            onClick={() => {
+              inputQueryChanger(suggestion);
+              setShowSuggestions(false); // Hide suggestions after selection
+            }}
+          >
             {suggestion}
           </div>
         );

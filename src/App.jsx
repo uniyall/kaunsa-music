@@ -4,12 +4,7 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./utils/firebase";
-import {
-  setUser,
-  removeUser,
-  removeSpotifyAccessToken,
-  setSpotifyAccessToken,
-} from "./utils/state/userSlice";
+import { setUser, removeUser } from "./utils/state/userSlice";
 import { openaiApi } from "./utils/state/services/openaiApi";
 import { spotifyApi } from "./utils/state/services/spotifyApi";
 import { geniusApi } from "./utils/state/services/geniusApi";
@@ -19,22 +14,6 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("spotify_access_token");
-    if (!token) {
-      dispatch(removeSpotifyAccessToken());
-    } else {
-      dispatch(setSpotifyAccessToken(token));
-    }
-
-    window.addEventListener("storage", () => {
-      const token = localStorage.getItem("spotify_access_token");
-      if (!token) {
-        dispatch(removeSpotifyAccessToken());
-      } else {
-        dispatch(setSpotifyAccessToken(token));
-      }
-    });
-
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         //signin / signup
@@ -55,6 +34,7 @@ function App() {
         dispatch(spotifyApi.util.resetApiState());
         dispatch(geniusApi.util.resetApiState());
         navigate("/");
+        localStorage.removeItem("spotify_access_token");
       }
     });
 

@@ -34,7 +34,6 @@ export const openaiApi = createApi({
           },
         });
 
-        console.log(res);
         return { data: JSON.parse(res.choices[0].message.content) };
       },
     }),
@@ -54,7 +53,7 @@ export const openaiApi = createApi({
           },
         });
 
-        console.log(res);
+        console.log(res.choices[0].message.content);
         return { data: JSON.parse(res.choices[0].message.content) };
       },
     }),
